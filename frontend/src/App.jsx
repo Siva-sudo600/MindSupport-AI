@@ -1,5 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 
+const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+
 export default function App() {
   const [messages, setMessages] = useState([
     { role: 'assistant', content: "Hi there! This is a completely anonymous, secure safe space to chat about academic pressures, burnout, or anything on your mind. How are you holding up today?" }
@@ -24,7 +26,7 @@ export default function App() {
     setIsStreaming(true);
 
     try {
-      const response = await fetch('http://localhost:8000/api/chat/stream', {
+      const response = await fetch(`${API_BASE_URL}/api/chat/stream`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ message: input, history: contextHistory }),

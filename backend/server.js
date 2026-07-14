@@ -6,12 +6,14 @@ import cors from 'cors';
 import Groq from 'groq-sdk';
 
 const app = express();
-const PORT = process.env.PORT || 8000;
+const DEFAULT_PORT = 5000;
+const PORT = Number(process.env.PORT) || DEFAULT_PORT;
+const HOST = process.env.HOST || '127.0.0.1';
 
 // 2. Initialize Groq Client
-const groq = new Groq({
+const groq = process.env.GROQ_API_KEY ? new Groq({
   apiKey: process.env.GROQ_API_KEY,
-});
+}) : null;
 
 // Configure Middlewares
 app.use(cors({ origin: 'http://localhost:5173' })); // Matches default Vite frontend port
@@ -48,6 +50,12 @@ app.post('/api/chat/stream', async (req, res) => {
   res.setHeader('Cache-Control', 'no-cache');
   res.setHeader('Connection', 'keep-alive');
 
+  if (!groq) {
+    res.write('The AI service is not configured yet. Please set GROQ_API_KEY to enable responses.');
+    res.end();
+    return;
+  }
+
   try {
     // Build contextual prompt chaining
     // Safely terminate connection when generation concludes
@@ -78,6 +86,6 @@ app.post('/api/chat/stream', async (req, res) => {
   }
 });
 
-app.listen(PORT, () => {
-  console.log(`[OK] Backend engine operational on http://localhost:${PORT}`);
+app.listen(PORT, HOST, () => {
+  console.log(`[OK] Backend engine operational on http://${HOST}:${PORT}`);
 });
