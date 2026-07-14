@@ -8,7 +8,7 @@ import Groq from 'groq-sdk';
 const app = express();
 const DEFAULT_PORT = 5000;
 const PORT = Number(process.env.PORT) || DEFAULT_PORT;
-const HOST = process.env.HOST || '127.0.0.1';
+const HOST = process.env.HOST || '0.0.0.0';
 
 // 2. Initialize Groq Client
 const groq = process.env.GROQ_API_KEY ? new Groq({
@@ -86,6 +86,9 @@ app.post('/api/chat/stream', async (req, res) => {
   }
 });
 
-app.listen(PORT, HOST, () => {
-  console.log(`[OK] Backend engine operational on http://${HOST}:${PORT}`);
+// app.listen(PORT, HOST, () => {
+//   console.log(`[OK] Backend engine operational on http://${HOST}:${PORT}`);
+// });
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
 });
