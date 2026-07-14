@@ -16,7 +16,11 @@ const groq = process.env.GROQ_API_KEY ? new Groq({
 }) : null;
 
 // Configure Middlewares
-app.use(cors({ origin: 'http://localhost:5173' })); // Matches default Vite frontend port
+app.use(cors({ origin: [
+        "http://localhost:5173",
+        "practical-essence-production-42ae.up.railway.app"
+      ]
+     })); // Matches default Vite frontend port
 app.use(express.json());
 
 // 1. Safety Interceptor Algorithm 
