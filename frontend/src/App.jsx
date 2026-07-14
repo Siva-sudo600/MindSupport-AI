@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 
-const API_BASE_URL = import.meta.env.VITE_API_URL || 'mindsupport-ai-production.up.railway.app';
+const API_BASE_URL = import.meta.env.VITE_API_URL || 'https://mindsupport-ai-production.up.railway.app';
 
 export default function App() {
   const [messages, setMessages] = useState([
