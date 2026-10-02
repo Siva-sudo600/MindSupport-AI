@@ -72,7 +72,7 @@ app.post('/api/chat/stream', async (req, res) => {
 
   // Call Groq instead of OpenAI using a fast, free open-source model
   const stream = await groq.chat.completions.create({
-    model: "llama-3.3-70b-versatile", // Incredibly smart open-source model
+    model: "openai/gpt-oss-120b", // Incredibly smart open-source model
     messages: formattedMessages,
     stream: true,
   });
