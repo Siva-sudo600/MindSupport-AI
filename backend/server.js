@@ -18,7 +18,8 @@ const groq = process.env.GROQ_API_KEY ? new Groq({
 // Configure Middlewares
 app.use(cors({ origin: [
         "http://localhost:5173",
-        "https://practical-essence-production-42ae.up.railway.app"
+        "https://practical-essence-production-42ae.up.railway.app",
+         "https://mindsupport-ai-frontend.onrender.com"
       ]
      })); // Matches default Vite frontend port
 app.use(express.json());
